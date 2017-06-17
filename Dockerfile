@@ -10,8 +10,7 @@ RUN printf "\ndeb http://packages.dotdeb.org jessie all\ndeb-src http://packages
     apt-get update -qq && apt-get upgrade -y && \
     apt-get install -y software-properties-common curl mc nano \
     php7.0-cli php7.0-intl php7.0-xsl php7.0-dom php7.0-zip php7.0-mbstring php7.0-mysql php7.0-gd php-pear && \
-    chmod a+x /tools/composer.sh && \
-    chmod a+x /usr/local/bin/jenkins-cli
+    chmod a+x /tools/composer.sh
 
 RUN /tools/composer.sh && rm -rf tools
 
