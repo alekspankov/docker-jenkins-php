@@ -1,7 +1,11 @@
 Jenkins + PHP 7.0
 =================
 
-_WIP_
+## Install
+
+1. Pull image ```docker pull aleksxp/jenkins-php```
+
+
 
 ---
 

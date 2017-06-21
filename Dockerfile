@@ -14,11 +14,6 @@ RUN printf "\ndeb http://packages.dotdeb.org jessie all\ndeb-src http://packages
 
 RUN /tools/composer.sh && rm -rf tools
 
-RUN composer global config minimum-stability dev && composer global config prefer-stable true && \
-    composer global require phpunit/phpunit squizlabs/php_codesniffer \
-    phploc/phploc pdepend/pdepend phpmd/phpmd sebastian/phpcpd \
-    mayflower/php-codebrowser theseer/phpdox:dev-master
-
 RUN mkdir -p /var/www && chown -R jenkins:jenkins /var/www
 
 USER jenkins
@@ -26,5 +21,10 @@ USER jenkins
 COPY ./tools/jenkins_plugins.txt /usr/share/jenkins/ref/plugins.txt
 RUN xargs /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
 
+RUN composer global config minimum-stability dev && composer global config prefer-stable true && \
+    composer global require phpunit/phpunit squizlabs/php_codesniffer \
+    phploc/phploc pdepend/pdepend phpmd/phpmd sebastian/phpcpd \
+    mayflower/php-codebrowser theseer/phpdox:dev-master
+    
 RUN cd /var/www && git clone https://github.com/alekspankov/php-jenkins.git && \
     mv /var/www/php-jenkins /var/www/default
