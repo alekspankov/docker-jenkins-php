@@ -9,3 +9,4 @@ pmd
 violations
 warnings
 xunit
+postbuild-task
