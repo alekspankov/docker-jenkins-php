@@ -1,13 +1,18 @@
-FROM jenkins:2.60.1
+FROM jenkins/jenkins:lts
 MAINTAINER Alexander Pankov <ap@wdevs.ru>
 
 USER root
 
 COPY ./tools/composer.sh /tools/composer.sh
 
-RUN printf "\ndeb http://packages.dotdeb.org jessie all\ndeb-src http://packages.dotdeb.org jessie all\n" >> /etc/apt/sources.list && \
-    wget https://www.dotdeb.org/dotdeb.gpg && apt-key add dotdeb.gpg && rm dotdeb.gpg && \
-    apt-get update -qq && apt-get upgrade -y && \
+# RUN printf "\ndeb http://packages.dotdeb.org jessie all\ndeb-src http://packages.dotdeb.org jessie all\n" >> /etc/apt/sources.list && \
+#     wget https://www.dotdeb.org/dotdeb.gpg 
+    
+    # && apt-key add dotdeb.gpg && rm dotdeb.gpg && \
+    # 
+
+
+RUN apt-get update -qq && apt-get upgrade -y && \
     apt-get install -y software-properties-common curl mc nano ant \
     php7.0-cli php7.0-intl php7.0-xsl php7.0-dom php7.0-zip php7.0-mbstring php7.0-mysql php7.0-gd php7.0-mongodb php-pear php7.0-xdebug && \
     chmod a+x /tools/composer.sh
@@ -20,6 +25,7 @@ RUN mkdir -p /var/composer && chown -R jenkins /var/composer
 
 USER jenkins
 
+COPY ./tools/executors.groovy /usr/share/jenkins/ref/init.groovy.d/executors.groovy
 COPY ./tools/jenkins_plugins.txt /usr/share/jenkins/ref/plugins.txt
 RUN xargs /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
 
