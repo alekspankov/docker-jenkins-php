@@ -2,6 +2,7 @@ Jenkins + PHP 7.0
 =================
 
 Current version: 0.3.1
+Base image: [jenkins/jenkins lts](https://hub.docker.com/r/jenkins/jenkins/)
 
 ## Install
 
